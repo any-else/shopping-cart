@@ -7,13 +7,13 @@ export const handleCallProductAPI = createAsyncThunk(
     //call API
     //thay vì call ở component thì mình call trực tiêps tại redux
     const response = await ProductAPI.getAllProduct();
-    const data = response.data;
+
     //console.log()
-    console.log("data sau khi call ===========>", data);
+    console.log("data sau khi call ===========>", response);
     //lưu vào LocalStorage
-    localStorage.setItem("carts", JSON.stringify(data));
+    localStorage.setItem("carts", JSON.stringify(response));
     //trả về một payload
-    return data;
+    return response;
   }
 );
 

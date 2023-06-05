@@ -2,7 +2,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { register } from "../../redux/reducer/UserSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+import "./SignUp.css";
 const SignUp = () => {
   const [inputValue, setInputValue] = React.useState({});
   const dispatch = useDispatch();
@@ -13,13 +16,30 @@ const SignUp = () => {
       [e.target.name]: e.target.value,
     });
   };
+  {
+  }
   //handle cho thằng Form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(register(inputValue)).unwrap();
+    try {
+      await dispatch(register(inputValue)).unwrap();
+    } catch (error) {
+      console.log("LOI", error);
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
   return (
     <div>
+      <ToastContainer />
       <div className="background">
         <div className="shape" />
         <div className="shape" />

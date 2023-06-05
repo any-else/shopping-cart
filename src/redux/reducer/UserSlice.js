@@ -6,50 +6,40 @@ import { UserAPI } from "../../api/User";
 export const register = createAsyncThunk(
   "register/fetchAuth",
   async (payload) => {
-    console.log("action ===>", payload);
-    //call API để đăng kí tài khoản
     const response = await UserAPI.register(payload);
-    console.log("response ===>", response);
-    const data = await response.data;
     //luu User
-    localStorage.setItem("user", JSON.stringify(data.user));
+    localStorage.setItem("user", JSON.stringify(response.user));
     //luu accessTOken
-    localStorage.setItem(
-      "accessTokenRegister",
-      JSON.stringify(data.accessToken)
-    );
-
-    return data; //tra ve state cho  reducer
+    localStorage.setItem("access_token", JSON.stringify(response.accessToken));
+    return response; //tra ve state cho  reducer
   }
 );
 
 //action bat dong bo
-
 export const login = createAsyncThunk("login/fetchAuth", async (payload) => {
   //call len sever xem cos tai khoan
-
   try {
     const response = await UserAPI.login(payload);
-    console.log("response", response);
-    const user = response.data;
-    user && localStorage.setItem("user", JSON.stringify(user.user));
-    user &&
+
+    response && localStorage.setItem("user", JSON.stringify(response.user));
+    response &&
       localStorage.setItem(
-        "accessTokenRegister",
-        JSON.stringify(user.accessToken)
+        "access_token",
+        JSON.stringify(response.accessToken)
       );
-    return user;
+    return response;
   } catch (error) {
-    console.log(error);
+    console.log("new error", error);
   }
 });
+
 const userSlice = createSlice({
   name: "user",
-  initialState: JSON.parse(localStorage.getItem("user")) || {},
+  initialState: {},
   extraReducers: {
     [register.fulfilled]: (state, action) => {
+      if (action.payload == undefined) return;
       state = action.payload.user;
-
       //set lai state cho User
       return state;
     },
