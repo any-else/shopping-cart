@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductAPI from "../../api/Product";
 import ListProduct from "../ListProduct/ListProduct";
+import { useSelector } from "react-redux";
 const NextArrow = (props) => {
   const { onClick } = props;
   return (
@@ -58,24 +59,7 @@ const PrevArrow = (props) => {
 };
 
 const SliderComponent = () => {
-  const [isCheck, setIsCheck] = React.useState(true);
-  const [productList, setProductList] = React.useState([]);
-
-  React.useEffect(() => {
-    const handleCallApi = async () => {
-      const response = await ProductAPI.getAllProduct();
-      const data = response.data;
-      setProductList(data);
-    };
-    if (isCheck) {
-      handleCallApi();
-    }
-    //cua useEffect no dung clear Effect ket thuc vong doi
-    return () => {
-      setIsCheck(false);
-    };
-  }, [isCheck]);
-
+  const productList = useSelector((state) => state.products);
   const settings = {
     infinite: true,
     slidesToShow: 7,

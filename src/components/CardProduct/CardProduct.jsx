@@ -9,11 +9,18 @@ import "react-toastify/dist/ReactToastify.css";
 const CardProduct = (props) => {
   const { product } = props;
   const dispatch = useDispatch();
-
+  //handle add
   const handleClick = (product) => {
     const add = addToCart(product);
     dispatch(add);
-    toast("Wow so easy!");
+
+    const functionThatReturnPromise = () =>
+      new Promise((resolve) => setTimeout(resolve, 3000));
+    toast.promise(functionThatReturnPromise, {
+      pending: "Đang thêm vào giỏ hàng",
+      success: "Thêm vào giỏ hàng thành công 👌",
+      error: "Thêm vào thất bại 🤯",
+    });
   };
 
   return (
