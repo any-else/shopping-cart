@@ -10,6 +10,7 @@ const axiosClient = axios.create({
   },
 });
 
+//Bộ đánh chặn của axios ==> kiểm tra trước khi đưa data lên server và ngược nó kiểm kết quả trả về
 // Add a request interceptor
 axiosClient.interceptors.request.use(
   function (config) {
@@ -37,9 +38,12 @@ axiosClient.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     console.log("axiosClient - response error", error.response);
-    const { config, status, data } = error.response;
-
+    const { config, status, data } = error.response; //loi server tra ve
     if (config.url === "/register" && status === 400) {
+      throw new Error(data);
+    }
+
+    if (config.url === "/login" && status === 400) {
       throw new Error(data);
     }
     // Do something with response error

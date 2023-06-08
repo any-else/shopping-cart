@@ -1,13 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-//phục vụ cho việc call bất đồng bộ để lưu data lên thằng redux
-//createAsyncThunk sẽ nhận vào 2 tham số, thứ nhất là 1 chuỗi nên đặt tên theo cách call
-//nó được hiểu là một action
-
 const CartSlice = createSlice({
   name: "carts",
   initialState: [],
-  //reducers chỉ thao tác với đồng bộ
   reducers: {
     addToCart: (state, action) => {
       console.log("action ==>", action);

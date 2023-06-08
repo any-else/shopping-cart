@@ -9,22 +9,30 @@ import "./SignUp.css";
 const SignUp = () => {
   const [inputValue, setInputValue] = React.useState({});
   const dispatch = useDispatch();
-  //handle cho thằng Input
+
   const handleInputChange = (e) => {
     setInputValue({
       ...inputValue,
       [e.target.name]: e.target.value,
     });
   };
-  {
-  }
-  //handle cho thằng Form
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await dispatch(register(inputValue)).unwrap();
+      toast.success("🦄 Wow so easy!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        className: "toast-message",
+      });
     } catch (error) {
-      console.log("LOI", error);
       toast.error(error.message, {
         position: "top-right",
         autoClose: 5000,
@@ -34,12 +42,24 @@ const SignUp = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
+        className: "toast-message",
       });
     }
   };
   return (
     <div>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <div className="background">
         <div className="shape" />
         <div className="shape" />
@@ -62,7 +82,7 @@ const SignUp = () => {
           name="password"
           onChange={handleInputChange}
         />
-        <button>Register</button>
+        <button className="register">Register</button>
 
         <NavLink
           to={"/auth/SignIn"}

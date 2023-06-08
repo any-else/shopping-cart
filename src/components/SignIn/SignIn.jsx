@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../../redux/reducer/UserSlice";
 const SignIn = () => {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
   const [inputValue, setInputValue] = React.useState({});
   const dispatch = useDispatch();
   //handle cho thằng Input
@@ -20,7 +21,11 @@ const SignIn = () => {
     e.preventDefault();
     const data = await dispatch(login(inputValue)).unwrap();
     //dispath thanh cong thi ve trang chu
-    data && navigate("/");
+    if (user.email !== "admin@gmail.com") {
+      navigate("/");
+    } else {
+      navigate("/admin");
+    }
   };
 
   return (

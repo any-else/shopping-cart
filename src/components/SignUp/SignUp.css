@@ -81,8 +81,8 @@ input{
 ::placeholder{
     color: #e5e5e5;
 }
-button{
-    margin-top: 50px;
+.register{
+    /* margin-top: 50px; */
     width: 100%;
     background-color: #f09819;
     color: #e5e5e5;
@@ -91,4 +91,13 @@ button{
     font-weight: 600;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.toast-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    width: 30rem;
+    height: 80px;
 }

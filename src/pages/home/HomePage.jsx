@@ -9,11 +9,14 @@ import { handleCallProductAPI } from "../../redux/reducer/ProductSlice";
 const HomePage = () => {
   //getAllProduct nó sẽ dispatch 1 action bất đồng bộ
   const dispatch = useDispatch();
-  const getAllProduct = async () => {
-    const products = handleCallProductAPI();
-    await dispatch(products).unwrap();
-  };
-  getAllProduct();
+  React.useEffect(() => {
+    const getAllProduct = async () => {
+      const products = handleCallProductAPI();
+      await dispatch(products).unwrap();
+    };
+    getAllProduct();
+  }, []);
+
   return (
     <div>
       <Layout>
